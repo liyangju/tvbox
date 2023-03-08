@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,
+    initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <el-main>
+            <div class="level">
+                <h3>获取Token1 <el-link type="primary" href="./index.html">Tvbox线路</el-link>
+                </h3>
+                <el-table :data="urls" style="width: 100%" size="small">
+                    <el-table-column prop="name" label="名称" width="120"></el-table-column>
+                    <el-table-column prop="url" label="URL" min-width="75">
+                        <template slot-scope="scope">
+                            <el-input placeholder="请输入内容" v-model="scope.row.url" size="small">
+                            </el-input>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="操作" width="240">
+                        <template slot-scope="scope">
+                            <el-button type="primary" size="small" @click="handleCopy(scope.row)">复制</el-button>
+                            <el-button type="success" size="small" v-if="scope.$index>0" @click="handleLink(scope.row)">
+                                跳转</el-button>
+                            <el-button type="warning" size="small" v-if="scope.$index>0" @click="handleSub(scope.row)">
+                                解析
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-main>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                urls: [{
+                    name: '获取自己Token',
+                    url: 'JSON.parse (localStorage.token).refresh_token'
+                }, {
+                    name: '饭太硬',
+                    url: 'http://ali.饭太硬.ml/alitoken'
+                }, {
+                    name: "肥猫",
+                    url: 'http://hz752.love:63/ali/ken.php'
+                }, {
+                    name: '南风',
+                    url: 'https://agit.ai/Yoursmile7/TVBox/raw/branch/master/tok.txt'
+                }, {
+                    name: "应用多多",
+                    url: 'https://yydsys.top/duo/ali/token.txt'
+                }, {
+                    name: "巧技",
+                    url: 'https://www.qiaoji8.com/jar1/token.txt'
+                }, {
+                    name: "老刘备",
+                    url: "https://raw.liucn.cc/box/sub/ext/token.txt"
+                }, {
+                    name: "月光宝盒",
+                    url: "http://52bsj.vip:81/api/v3/file/get/101305/token.txt"
+                }, {
+                    name: "星辰",
+                    url: "https://agit.ai/qi169/kankan/raw/branch/master/ali/token.txt"
+                }, {
+                    name: "星辰",
+                    url: "https://agit.ai/qi169/kankan/raw/branch/master/ali/token.txt"
+                }, {
+                    name: "分享者",
+                    url: "https://pastebin.com/raw/cnxF4paS"
+                }]
+            }
+        },
+        methods: {
+            handleCopy(row) {
+                // navigator.clipboard.writeText(row.url).then(() => {
+                //     this.$message({
+                //         message: "复制成功:" + row.url,
+                //         type: 'success'
+                //     });
+                // });
+
+
+                var ele = document.createElement('input'); //创建一个input标签
+                ele.setAttribute('value', row.url); // 设置改input的value值
+                document.body.appendChild(ele); // 将input添加到body
+                ele.select(); // 获取input的文本内容
+                document.execCommand('copy'); // 执行copy指令
+                document.body.removeChild(ele); // 删除input标签
+
+                this.$message({
+                    message: "复制成功:" + row.url,
+                    type: 'success'
+                });
+
+
+            },
+            handleLink(row) {
+                let el = document.createElement("a");
+                document.body.appendChild(el);
+                el.href = row.url; //url 是你得到的连接
+                el.target = '_blank'; //指定在新窗口
+                el.click();
+                document.body.removeChild(el);
+            },
+            handleSub(row) {
+                let sub = "http://ltjm.ml/mao.php?url=";
+                // let sub = "http://lengniuge.eu.org/TVbox.php?url="
+                let el = document.createElement("a");
+                document.body.appendChild(el);
+                el.href = sub + row.url; //url 是你得到的连接
+                el.target = '_blank'; //指定在新窗口
+                el.click();
+                document.body.removeChild(el);
+            }
+        }
+    })
+</script>
+
+</html>
